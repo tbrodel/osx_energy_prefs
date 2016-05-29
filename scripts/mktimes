@@ -1,0 +1,16 @@
+#!/bin/sh
+
+WD=/Users/Shared/giant_theremin/scripts
+cd $WD
+
+NEWTIME=`cat times | awk '{print $1}'`
+OLDTIME=`cat timestamp`
+
+if [[ $NEWTIME -gt $OLDTIME ]]
+then
+	START=`cat times | awk '{print $2}'`
+	END=`cat times | awk '{print $3}'`
+	/usr/bin/pmset repeat wakeorpoweron MTWRFSU $START shutdown MTWRFSU $END
+	echo $NEWTIME > timestamp
+fi
+
